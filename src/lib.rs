@@ -5,6 +5,8 @@ use hex_literal::hex;
 use sha2::{Sha256, Sha512, Digest};
 use hmac::{Hmac, Mac};
 // use near_sdk::{env};
+pub mod salt;
+use crate::salt::hash;
 
 fn cal_hash(input:&'static [u8; 11]){
     let mut sha = Sha256::new();
@@ -32,6 +34,11 @@ mod tests{
     // use near_sdk::test_utils::{get_logs, VMContextBuilder};
     // use near_sdk::{testing_env, AccountId};
 
+    #[test]
+    fn test_salt(){
+        let result = hash("Hello!");
+        println!("Let's debug:{:?}", result);
+    }
     #[test]
     fn test_cal_hash(){
             let result = cal_hash(b"hello world");
